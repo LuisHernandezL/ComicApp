@@ -1,16 +1,41 @@
-# comic_vine_app
+# APPUC App
 
-A new Flutter project.
+## Dev
 
-## Getting Started
+1. Clone el repositorio
+2. Cree el archivo `.env` en la raíz del proyecto y cree las variables de entorno que se muestran en el archivo `.env.template` con sus respectivos valores.
+3. Asegúrate de tener instalado Dart SDK en la versión `^3.5.0` o superior. Puedes verificar la versión instalada ejecutando el siguiente comando en tu terminal:
+     ```bash
+     dart --version
+     ```
+   * Si necesitas actualizar la versión, puedes seguir las instrucciones oficiales de Dart.
+4.  Descargue las librerías con :
 
-This project is a starting point for a Flutter application.
+```
+flutter pub get
+```
 
-A few resources to get you started if this is your first Flutter project:
+5. Corra el proyecto con `F5`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+### Extras
+
+1. Para limpiar el build y paquetes ejecutar
+
+```
+flutter clean
+```
+
+Para reconstruir todo ejecutar
+
+```
+flutter pub get
+```
+
+
+2. Para utilizar el generador de modelos mantener activo el siguiente comando
+
+```
+dart run build_runner watch
+```
