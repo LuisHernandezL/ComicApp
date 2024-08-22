@@ -71,7 +71,9 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
           ?.map((e) => Volume.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
-      objectCredits: json['object_credits'] as List<dynamic>?,
+      objectCredits: (json['object_credits'] as List<dynamic>?)
+          ?.map((e) => Volume.fromJson(e as Map<String, dynamic>))
+          .toList(),
       personCredits: (json['person_credits'] as List<dynamic>?)
           ?.map((e) => Volume.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -79,7 +81,9 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
       storeDate: json['store_date'] == null
           ? null
           : DateTime.parse(json['store_date'] as String),
-      storyArcCredits: json['story_arc_credits'] as List<dynamic>?,
+      storyArcCredits: (json['story_arc_credits'] as List<dynamic>?)
+          ?.map((e) => Volume.fromJson(e as Map<String, dynamic>))
+          .toList(),
       teamCredits: (json['team_credits'] as List<dynamic>?)
           ?.map((e) => Volume.fromJson(e as Map<String, dynamic>))
           .toList(),

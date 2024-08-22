@@ -26,27 +26,22 @@ class ComicDetailCard extends StatelessWidget {
         ?.image
         ?.originalUrl;
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ComicImage(
-              volume: img,
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ComicImage(
+            volume: img,
           ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: ComicInformation(
-              volume: volume,
-              fontColor: fontColor,
-              isOrderSummary: false,
-            ),
+        ),
+        Expanded(
+          child: ComicInformation(
+            volume: volume,
+            fontColor: fontColor,
+            isOrderSummary: false,
           ),
-          const SizedBox(width: 10),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -61,10 +56,16 @@ class ComicImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
+    const double widthFactor = 2.25;
     return SizedBox(
+      width: width / widthFactor,
+      height: 100,
       child: CachedNetworkImage(
+        cacheKey: volume,
         imageUrl: volume ?? '',
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
         placeholder: (context, url) =>
             const Center(child: CircularProgressIndicator()),
         errorWidget: (context, url, error) => const Icon(Icons.error),

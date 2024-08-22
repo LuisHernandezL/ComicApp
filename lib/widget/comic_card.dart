@@ -30,8 +30,7 @@ class ComicCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double heightVariable =
-        (MediaQuery.of(context).size.width) > 700 ? 350 : height;
+    const double heightVariable = 350;
     final double widthVariable = width / widthFactor;
 
     return InkWell(

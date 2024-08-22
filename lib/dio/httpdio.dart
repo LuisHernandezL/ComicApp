@@ -11,8 +11,8 @@ class HttpDio {
 
     final options = BaseOptions(
       baseUrl: url ?? 'https://comicvine.gamespot.com/api/',
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 8),
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
     );
 
     dio.interceptors.add(CustomerInterceptors());

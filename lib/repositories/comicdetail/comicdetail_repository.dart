@@ -17,30 +17,51 @@ class ComicDetailRepository extends BaseComicDetailRepository {
     final parsedData = _parseResponse.parseResponse<ComicDetail>(
         response, (elemento) => ComicDetail.fromJson(elemento));
 
-    List<Imagen> listImagenCharater =
-        await fetchImages(parsedData.results?.characterCredits ?? []);
-    List<Imagen> listImagenLocation =
-        await fetchImages(parsedData.results?.locationCredits ?? []);
-    List<Imagen> listImagenCredit =
-        await fetchImages(parsedData.results?.teamCredits ?? []);
+    List<Future<List<Imagen>>> imageFetchFutures = [
+      fetchImages(parsedData.results?.characterCredits ?? []),
+      fetchImages(parsedData.results?.locationCredits ?? []),
+      fetchImages(parsedData.results?.teamCredits ?? []),
+      fetchImages(parsedData.results?.personCredits ?? []),
+      fetchImages(parsedData.results?.conceptCredits ?? []),
+      fetchImages(parsedData.results?.objectCredits ?? []),
+      fetchImages(parsedData.results?.storyArcCredits ?? []),
+    ];
+
+    List<List<Imagen>> imageLists = await Future.wait(imageFetchFutures);
 
     final result = ImagenComic(
-        detail: parsedData.results,
-        chacarter: listImagenCharater,
-        credits: listImagenCredit,
-        location: listImagenLocation);
+      detail: parsedData.results,
+      chacarter: imageLists[0],
+      credits: imageLists[1],
+      location: imageLists[2],
+      creatorCredits: imageLists[3],
+      concepts: imageLists[4],
+      objects: imageLists[5],
+      storyArcs: imageLists[6],
+    );
+
     return result;
   }
 
   Future<List<Imagen>> fetchImages(List<Volume> items) async {
     List<Imagen> listImagen = <Imagen>[];
-    for (var item in items) {
-      final response = await _httpDio.dio.get(item.apiDetailUrl ?? '');
-      final parsedData = _parseResponse.parseResponse<ImagenDetail>(
-          response, (elemento) => ImagenDetail.fromJson(elemento));
+    List<Future<Imagen>> futures = [];
 
-      listImagen.add(parsedData.results ?? Imagen());
+    for (var item in items) {
+      futures.add(_fetchImage(item));
     }
+
+    List<Imagen> results = await Future.wait(futures);
+    listImagen.addAll(results);
+
     return listImagen;
+  }
+
+  Future<Imagen> _fetchImage(Volume item) async {
+    final response = await _httpDio.dio.get(item.apiDetailUrl ?? '');
+    final parsedData = _parseResponse.parseResponse<ImagenDetail>(
+        response, (elemento) => ImagenDetail.fromJson(elemento));
+
+    return parsedData.results ?? Imagen();
   }
 }

@@ -89,7 +89,7 @@ class Results {
   @JsonKey(name: 'name')
   String? name;
   @JsonKey(name: 'object_credits')
-  List<dynamic>? objectCredits;
+  List<Volume>? objectCredits;
   @JsonKey(name: 'person_credits')
   List<Volume>? personCredits;
   @JsonKey(name: 'site_detail_url')
@@ -97,7 +97,7 @@ class Results {
   @JsonKey(name: 'store_date')
   DateTime? storeDate;
   @JsonKey(name: 'story_arc_credits')
-  List<dynamic>? storyArcCredits;
+  List<Volume>? storyArcCredits;
   @JsonKey(name: 'team_credits')
   List<Volume>? teamCredits;
   @JsonKey(name: 'team_disbanded_in')
